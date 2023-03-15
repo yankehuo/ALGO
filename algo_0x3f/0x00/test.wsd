@@ -1,0 +1,26 @@
+@startuml name
+
+autonumber
+hide footbox
+title **访问页面**
+
+actor "用户" as User
+participant "浏览器" as Browser
+participant "服务端" as Server #orange
+
+activate User
+User -[#blue]> Browser: 输入 URL
+activate Browser
+Browser -> Server: 请求服务器
+activate Server #orange
+Server -> Server: 模板渲染
+note right of Server: 记录访问日志
+Server -> Browser: 返回 HTML
+...
+Browser -> Server: 请求静态资源 JS/CSS
+deactivate Server
+|||
+Browser -> Browser: 排版 + 渲染
+Browser --> User
+
+@enduml
